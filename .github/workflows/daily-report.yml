@@ -31,6 +31,7 @@ jobs:
           USE_SCRAPER: true
           ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
         run: |
+          mkdir -p reports
           cd ai-hot-bot
           python main.py
 
