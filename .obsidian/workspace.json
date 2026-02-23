@@ -1,0 +1,213 @@
+{
+  "main": {
+    "id": "9ba16ff083ee6ffd",
+    "type": "split",
+    "children": [
+      {
+        "id": "a9a9cb6f7a38f7fa",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1da00986ac9e6dcb",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "write-xiaohongshu-skill/references/articles/personal-narrative/my-19.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "my-19"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "c86e2bb32549c69b",
+    "type": "split",
+    "children": [
+      {
+        "id": "7ccf21a942754cdb",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "86830deeb7606f7f",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "495e0208e7c89369",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "ae25b4eb38f5a6a9",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 250.5
+  },
+  "right": {
+    "id": "822a0fa3775c99f7",
+    "type": "split",
+    "children": [
+      {
+        "id": "ae940c964f2f10a9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d23ec37f5bd8e258",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Excalidraw/Drawing 2026-02-11 10.06.37.excalidraw.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Drawing 2026-02-11 10.06.37.excalidraw"
+            }
+          },
+          {
+            "id": "102e494f4d9f3cc0",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Excalidraw/Drawing 2026-02-11 10.06.37.excalidraw.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Drawing 2026-02-11 10.06.37.excalidraw"
+            }
+          },
+          {
+            "id": "7b33f9df3d2d397b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "ffecba8b45761120",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "9c87b6222cca94fd",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Excalidraw/Drawing 2026-02-11 10.06.37.excalidraw.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Drawing 2026-02-11 10.06.37.excalidraw"
+            }
+          },
+          {
+            "id": "d1f36742fcf0c299",
+            "type": "leaf",
+            "state": {
+              "type": "claudian-view",
+              "state": {},
+              "icon": "bot",
+              "title": "Claudian"
+            }
+          }
+        ],
+        "currentTab": 5
+      }
+    ],
+    "direction": "horizontal",
+    "width": 429.5
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "obsidian-excalidraw-plugin:New drawing": false,
+      "claudian:Open Claudian": false
+    }
+  },
+  "active": "d1f36742fcf0c299",
+  "lastOpenFiles": [
+    "analyze-xhs-topic.skill.md",
+    "write-xiaohongshu-skill/knowledge/2026-02-21-2万浏览裸辞笔记复盘.md",
+    "write-xiaohongshu-skill/references/articles/social-observation/others-08.md",
+    "write-xiaohongshu-skill/references/articles/truth-reveal-perspective/my-21.md",
+    "write-xiaohongshu-skill/references/frameworks.md",
+    "write-xiaohongshu-skill/references/articles/personal-narrative/my-19.md",
+    "write-xiaohongshu-skill/references/articles/industry-analysis/others-07.md",
+    "write-xiaohongshu-skill/references/articles/experience-list/others-10.md",
+    "write-xiaohongshu-skill/references/articles/game-metaphor/my-20.md",
+    "write-xiaohongshu-skill/SKILL.md",
+    "Excalidraw/Drawing 2026-02-11 10.06.37.excalidraw.md",
+    "Excalidraw"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "conv-1770819441655-eyu0w9qzc",
+  "title": "Generate小红书晋升答辩问答攻略",
+  "titleGenerationStatus": "success",
+  "createdAt": 1770819441655,
+  "updatedAt": 1771680336098,
+  "lastResponseAt": 1771680336098,
+  "sessionId": "3a3182e8-1e8d-4d65-9a69-676908db75d3",
+  "sdkSessionId": "3a3182e8-1e8d-4d65-9a69-676908db75d3",
+  "usage": {
+    "model": "sonnet",
+    "inputTokens": 0,
+    "cacheCreationInputTokens": 0,
+    "cacheReadInputTokens": 0,
+    "contextWindow": 200000,
+    "contextTokens": 0,
+    "percentage": 0
+  }
+}

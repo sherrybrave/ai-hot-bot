@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小红书笔记生成器 - Design Playground</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .playground-section {
+            margin-bottom: 4rem;
+        }
+        .playground-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="logo">🎨 Design <span>Playground</span></h1>
+            <p style="color: var(--text-secondary); margin-top: 1rem;">小红书笔记生成器 - UI 组件展示</p>
+        </header>
+
+        <!-- 1. 按钮样式 -->
+        <div class="playground-section">
+            <h2 class="playground-title">按钮样式</h2>
+            <div class="component-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <button class="btn btn-primary">主按钮</button>
+                <button class="btn btn-secondary">次按钮</button>
+                <button class="btn btn-primary" disabled>禁用按钮</button>
+            </div>
+        </div>
+
+        <!-- 2. 表单元素 -->
+        <div class="playground-section">
+            <h2 class="playground-title">表单元素</h2>
+            <div class="card">
+                <div class="form-group">
+                    <label class="form-label">输入框</label>
+                    <input type="text" class="form-input" placeholder="请输入内容...">
+                    <span class="form-hint">这是提示文字</span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">文本域</label>
+                    <textarea class="form-textarea" placeholder="请输入多行内容..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">下拉选择</label>
+                    <select class="form-select">
+                        <option>选项 1</option>
+                        <option>选项 2</option>
+                        <option>选项 3</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 卡片样式 -->
+        <div class="playground-section">
+            <h2 class="playground-title">卡片样式</h2>
+            <div class="component-grid">
+                <div class="card">
+                    <h3 class="card-title">基础卡片</h3>
+                    <p class="card-content">这是一个基础的卡片组件，带有悬停效果和边框高亮。</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">信息卡片</h3>
+                    <p class="card-content">用于展示信息的卡片，支持自定义内容和样式。</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-title">交互卡片</h3>
+                    <p class="card-content">悬停时会有上移动画和阴影增强效果。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. 标签 -->
+        <div class="playground-section">
+            <h2 class="playground-title">标签样式</h2>
+            <div class="card">
+                <div class="tags-container">
+                    <span class="tag">📚 信号列举-干货型</span>
+                    <span class="tag active">✨ 故事讲述-情感型</span>
+                    <span class="tag">🎯 问题解决-实用型</span>
+                    <span class="tag">💡 观点启发-思考型</span>
+                    <span class="tag">📖 经验分享-成长型</span>
+                    <span class="tag">🔥 热点解读-分析型</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. 加载动画 -->
+        <div class="playground-section">
+            <h2 class="playground-title">加载动画</h2>
+            <div class="loading-container">
+                <div class="loading-spinner"></div>
+                <p class="loading-text">正在分析文章风格...</p>
+                <div class="loading-progress">
+                    <div class="loading-progress-bar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. 进度步骤 -->
+        <div class="playground-section">
+            <h2 class="playground-title">进度步骤</h2>
+            <div class="generation-container">
+                <div class="progress-steps">
+                    <div class="progress-step completed">
+                        <div class="progress-step-icon">✓</div>
+                        <div class="progress-step-content">
+                            <div class="progress-step-title">提取框架</div>
+                            <div class="progress-step-desc">已识别"信号列举-干货型"框架</div>
+                        </div>
+                    </div>
+                    <div class="progress-step active">
+                        <div class="progress-step-icon">●</div>
+                        <div class="progress-step-content">
+                            <div class="progress-step-title">融合风格</div>
+                            <div class="progress-step-desc">正在学习你的表达方式...</div>
+                        </div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-step-icon">3</div>
+                        <div class="progress-step-content">
+                            <div class="progress-step-title">生成内容</div>
+                            <div class="progress-step-desc">等待中...</div>
+                        </div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-step-icon">4</div>
+                        <div class="progress-step-content">
+                            <div class="progress-step-title">推荐标题</div>
+                            <div class="progress-step-desc">等待中...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="preview-panel">
+                    <div class="preview-title">实时预览</div>
+                    <div class="preview-content">正在生成中...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. 标题选择卡片 -->
+        <div class="playground-section">
+            <h2 class="playground-title">标题选择</h2>
+            <div class="title-cards">
+                <div class="title-card">
+                    <div class="title-card-text">3个技巧让你效率翻倍</div>
+                    <div class="title-card-reason">推荐：数字+痛点+收益</div>
+                </div>
+                <div class="title-card selected">
+                    <div class="title-card-text">大厂不说的效率秘籍</div>
+                    <div class="title-card-reason">推荐：好奇心+权威感</div>
+                </div>
+                <div class="title-card">
+                    <div class="title-card-text">别再浪费时间了</div>
+                    <div class="title-card-reason">推荐：情绪化+紧迫感</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. 最终展示 -->
+        <div class="playground-section">
+            <h2 class="playground-title">最终展示</h2>
+            <div class="final-content">
+                <div class="final-title">大厂不说的效率秘籍：3个技巧让你少走弯路</div>
+                <div class="final-body">今天和大家分享3个在互联网大厂工作的效率秘籍，这些都是我多年实践总结出来的精华。
+
+第一个技巧：用杠杆思维替代努力思维。很多人觉得勤奋就能成功，但其实真正的高手都在用杠杆——用最小的投入获得最大的产出。
+
+第二个技巧：建立个人知识库。不要让有用的信息流失，把每个知识点都系统化整理，这样才能形成复利效应。
+
+第三个技巧：学会说"不"。不是所有事情都值得做，学会判断优先级，把时间花在高价值的事情上。
+
+记住：效率不是做得更多，而是做得更对！</div>
+                <div class="final-tags">
+                    <span class="tag">#效率提升</span>
+                    <span class="tag">#职场经验</span>
+                    <span class="tag">#个人成长</span>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-primary">复制全部</button>
+                <button class="btn btn-secondary">重新生成</button>
+            </div>
+            <div class="free-tier-notice">
+                ⚠️ 免费额度剩余：1/2 次 | 升级到 Pro 版本解锁无限次生成
+            </div>
+        </div>
+
+        <!-- 9. 完整流程演示 -->
+        <div class="playground-section">
+            <h2 class="playground-title">完整流程进度条</h2>
+            <div class="progress-section">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%"></div>
+                </div>
+                <div class="steps-indicator">
+                    <div class="step completed">
+                        <div class="step-circle">✓</div>
+                        <div class="step-label">参考文章</div>
+                    </div>
+                    <div class="step completed">
+                        <div class="step-circle">✓</div>
+                        <div class="step-label">分析风格</div>
+                    </div>
+                    <div class="step active">
+                        <div class="step-circle">3</div>
+                        <div class="step-label">输入Idea</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-circle">4</div>
+                        <div class="step-label">生成笔记</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-circle">5</div>
+                        <div class="step-label">预览修改</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-circle">6</div>
+                        <div class="step-label">最终确认</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

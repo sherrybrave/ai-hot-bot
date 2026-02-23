@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PopPump - 小红书爆款笔记写作Agent</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/three-column.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-left">
+            <h1 class="app-logo">🔥 <span>PopPump</span></h1>
+            <p class="app-slogan">爆款内容工厂</p>
+        </div>
+        <div class="header-right">
+            <div class="usage-indicator">
+                <span class="usage-text">免费额度</span>
+                <span class="usage-count" id="usageCount">3/3</span>
+            </div>
+            <button class="btn-upgrade" onclick="showUpgradeDialog()">升级</button>
+            <button class="btn-settings">⚙️</button>
+        </div>
+    </header>
+
+    <!-- Main Container - Three Column Layout -->
+    <div class="three-column-container">
+
+        <!-- Left Sidebar - Knowledge Base -->
+        <aside class="left-sidebar">
+            <div class="sidebar-header">
+                <h2 class="sidebar-title">知识库</h2>
+                <div class="search-box">
+                    <input type="text" placeholder="搜索资产..." class="search-input">
+                </div>
+            </div>
+
+            <div class="knowledge-tree" id="knowledgeTree">
+                <!-- 框架库 -->
+                <div class="tree-item">
+                    <div class="tree-item-header" onclick="toggleFolder(this)">
+                        <span class="tree-icon">📁</span>
+                        <span class="tree-label">框架库</span>
+                        <span class="tree-arrow">▶</span>
+                    </div>
+                    <div class="tree-children">
+                        <div class="tree-item" onclick="openFramework('signal-list')">
+                            <span class="tree-icon">📋</span>
+                            <span class="tree-label">信号列举-干货型</span>
+                        </div>
+                        <div class="tree-item" onclick="openFramework('story-telling')">
+                            <span class="tree-icon">📖</span>
+                            <span class="tree-label">故事讲述-情感型</span>
+                        </div>
+                        <div class="tree-item" onclick="openFramework('problem-solution')">
+                            <span class="tree-icon">🎯</span>
+                            <span class="tree-label">问题解决-实用型</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 风格库 -->
+                <div class="tree-item">
+                    <div class="tree-item-header" onclick="toggleFolder(this)">
+                        <span class="tree-icon">📁</span>
+                        <span class="tree-label">风格库</span>
+                        <span class="tree-arrow">▶</span>
+                    </div>
+                    <div class="tree-children">
+                        <div class="tree-item" onclick="openStyle('default')">
+                            <span class="tree-icon">✨</span>
+                            <span class="tree-label">风格#1 (默认)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 参考文章 -->
+                <div class="tree-item">
+                    <div class="tree-item-header" onclick="toggleFolder(this)">
+                        <span class="tree-icon">📁</span>
+                        <span class="tree-label">参考文章</span>
+                        <span class="tree-arrow">▶</span>
+                    </div>
+                    <div class="tree-children">
+                        <div class="tree-item" onclick="openReference('ref1')">
+                            <span class="tree-icon">📄</span>
+                            <span class="tree-label">职场效率笔记</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 生成文章 -->
+                <div class="tree-item">
+                    <div class="tree-item-header" onclick="toggleFolder(this)">
+                        <span class="tree-icon">📁</span>
+                        <span class="tree-label">生成文章</span>
+                        <span class="tree-arrow">▶</span>
+                    </div>
+                    <div class="tree-children">
+                        <div class="tree-item" onclick="openArticle('article1')">
+                            <span class="tree-icon">📝</span>
+                            <span class="tree-label">大厂效率秘籍</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <button class="btn-add" onclick="addReference()">+ 添加参考文章</button>
+            </div>
+        </aside>
+
+        <!-- Center Canvas - Multi-tab System -->
+        <main class="center-canvas">
+            <div class="canvas-header">
+                <div class="tabs-container" id="tabsContainer">
+                    <div class="tab active" data-tab="welcome">
+                        <span class="tab-title">👋 欢迎</span>
+                        <span class="tab-close">×</span>
+                    </div>
+                </div>
+                <button class="btn-new-tab" onclick="newChat()">+ 新建对话</button>
+            </div>
+
+            <div class="canvas-content" id="canvasContent">
+                <!-- Welcome Tab Content -->
+                <div class="tab-pane active" data-pane="welcome">
+                    <div class="welcome-container">
+                        <h2 class="welcome-title">👋 欢迎！我是 PopPump</h2>
+                        <p class="welcome-subtitle">你的小红书爆款内容工厂</p>
+
+                        <div class="feature-cards">
+                            <div class="feature-card">
+                                <span class="feature-icon">📚</span>
+                                <h3>学习你的风格</h3>
+                                <p>粘贴1-2篇你的小红书笔记，我会学习你的写作风格</p>
+                            </div>
+                            <div class="feature-card">
+                                <span class="feature-icon">⚡</span>
+                                <h3>批量生成内容</h3>
+                                <p>输入你的想法，我帮你快速生成符合风格的笔记</p>
+                            </div>
+                            <div class="feature-card">
+                                <span class="feature-icon">🎯</span>
+                                <h3>爆款导向</h3>
+                                <p>优化标题和内容，追求更高的点赞转化率</p>
+                            </div>
+                        </div>
+
+                        <div class="quick-start">
+                            <h3>快速开始</h3>
+                            <button class="btn-primary-large" onclick="startLearningStyle()">
+                                开始学习我的风格 →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Style Learning Tab Content -->
+                <div class="tab-pane" data-pane="style-learning">
+                    <div class="learning-container">
+                        <h2>学习你的写作风格</h2>
+                        <p class="hint">粘贴1-2篇你最满意的小红书笔记</p>
+
+                        <textarea id="referenceInput" class="learning-textarea" placeholder="粘贴你的小红书笔记正文...&#10;&#10;支持粘贴多篇，用 --- 分隔"></textarea>
+
+                        <div class="learning-actions">
+                            <button class="btn-primary" onclick="analyzeStyle()">开始分析</button>
+                        </div>
+
+                        <div id="analyzingState" class="analyzing-state hidden">
+                            <div class="loading-spinner"></div>
+                            <p>正在分析你的写作风格...</p>
+                        </div>
+
+                        <div id="analysisResult" class="analysis-result hidden">
+                            <h3>✨ 分析完成！</h3>
+                            <div class="result-cards">
+                                <div class="result-card">
+                                    <h4>📚 框架</h4>
+                                    <p id="resultFramework">信号列举-干货型</p>
+                                </div>
+                                <div class="result-card">
+                                    <h4>✍️ 语气</h4>
+                                    <p id="resultTone">轻松活泼</p>
+                                </div>
+                                <div class="result-card">
+                                    <h4>🏗️ 结构</h4>
+                                    <p id="resultStructure">总分总</p>
+                                </div>
+                            </div>
+                            <button class="btn-primary" onclick="startChat()">开始创作 →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Tab Content -->
+                <div class="tab-pane" data-pane="chat">
+                    <div class="chat-container">
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="message agent">
+                                <div class="message-avatar">🤖</div>
+                                <div class="message-content">
+                                    <p>👋 你好！我是 PopPump，你的爆款内容工厂。</p>
+                                    <p>我已经记住了你的写作风格。现在想写什么笔记？</p>
+                                    <div class="suggestions">
+                                        <button class="suggestion-btn" onclick="sendSuggestion('分享3个提高工作效率的方法')">
+                                            分享3个提高工作效率的方法
+                                        </button>
+                                        <button class="suggestion-btn" onclick="sendSuggestion('写一篇关于远程办公的建议')">
+                                            写一篇关于远程办公的建议
+                                        </button>
+                                        <button class="suggestion-btn" onclick="sendSuggestion('推荐几本最近读过的好书')">
+                                            推荐几本最近读过的好书
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="generation-progress hidden" id="generationProgress">
+                            <div class="progress-steps">
+                                <div class="progress-step active" id="genStep1">
+                                    <div class="step-icon">1</div>
+                                    <div class="step-content">
+                                        <div class="step-title">提取框架</div>
+                                        <div class="step-desc">已识别框架</div>
+                                    </div>
+                                </div>
+                                <div class="progress-step" id="genStep2">
+                                    <div class="step-icon">2</div>
+                                    <div class="step-content">
+                                        <div class="step-title">融合风格</div>
+                                        <div class="step-desc">等待中...</div>
+                                    </div>
+                                </div>
+                                <div class="progress-step" id="genStep3">
+                                    <div class="step-icon">3</div>
+                                    <div class="step-content">
+                                        <div class="step-title">生成内容</div>
+                                        <div class="step-desc">等待中...</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article Edit Tab Content -->
+                <div class="tab-pane" data-pane="article-edit">
+                    <div class="article-editor">
+                        <h2>编辑笔记</h2>
+
+                        <div class="title-selection">
+                            <label>选择标题</label>
+                            <div class="title-cards">
+                                <div class="title-card" onclick="selectTitle(0)">
+                                    <div class="title-text" id="titleOption0">标题1</div>
+                                    <div class="title-reason" id="titleReason0">推荐理由</div>
+                                </div>
+                                <div class="title-card selected" onclick="selectTitle(1)">
+                                    <div class="title-text" id="titleOption1">标题2</div>
+                                    <div class="title-reason" id="titleReason1">推荐理由</div>
+                                </div>
+                                <div class="title-card" onclick="selectTitle(2)">
+                                    <div class="title-text" id="titleOption2">标题3</div>
+                                    <div class="title-reason" id="titleReason2">推荐理由</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="content-edit">
+                            <label>正文内容</label>
+                            <textarea id="articleContent" class="content-textarea"></textarea>
+                        </div>
+
+                        <div class="tags-edit">
+                            <label>添加标签（最多5个）</label>
+                            <div class="tags-input">
+                                <input type="text" id="tagInput" placeholder="输入标签，按回车添加">
+                                <button onclick="addTag()">添加</button>
+                            </div>
+                            <div class="selected-tags" id="selectedTags">
+                                <span class="tag">#效率提升</span>
+                                <span class="tag">#职场经验</span>
+                                <span class="tag">#个人成长</span>
+                            </div>
+                        </div>
+
+                        <div class="article-actions">
+                            <button class="btn-primary" onclick="copyArticle()">复制全部</button>
+                            <button class="btn-secondary" onclick="saveArticle()">保存到知识库</button>
+                            <button class="btn-secondary" onclick="regenerate()">重新生成</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Sidebar - Agent Chat -->
+        <aside class="right-sidebar">
+            <div class="chat-header">
+                <h2>🤖 PopPump Agent</h2>
+            </div>
+
+            <div class="chat-messages-area" id="agentMessages">
+                <div class="message agent">
+                    <div class="message-content">
+                        <p>👋 你好！我是 PopPump，你的爆款内容工厂。</p>
+                        <p>我可以帮你：</p>
+                        <ul>
+                            <li>学习你的写作风格</li>
+                            <li>快速生成小红书笔记</li>
+                            <li>优化标题和内容</li>
+                        </ul>
+                        <p>准备好开始了吗？在左侧选择"开始学习我的风格"，或者直接告诉我你想写什么！</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <textarea id="agentInput" class="chat-textarea" placeholder="告诉我想写什么..." onkeypress="handleKeyPress(event)"></textarea>
+                <button class="btn-send" onclick="sendMessage()">发送 →</button>
+            </div>
+
+            <div class="usage-notice">
+                <p>💡 免费额度：<strong id="freeUsageCount">3</strong>/3 次</p>
+                <p><a href="#" onclick="showUpgradeDialog()">解锁无限次 →</a></p>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Upgrade Dialog -->
+    <div class="modal hidden" id="upgradeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>解锁无限次生成</h2>
+                <button class="modal-close" onclick="closeUpgradeDialog()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="pricing-cards">
+                    <div class="pricing-card">
+                        <h3>按次付费</h3>
+                        <div class="price">¥2<span class="unit">/次</span></div>
+                        <p>适合偶尔使用</p>
+                        <ul>
+                            <li>✓ 单次购买</li>
+                            <li>✓ 永久有效</li>
+                        </ul>
+                        <button class="btn-outline">购买</button>
+                    </div>
+                    <div class="pricing-card featured">
+                        <div class="badge">推荐</div>
+                        <h3>包月无限</h3>
+                        <div class="price">¥29<span class="unit">/月</span></div>
+                        <p>每月>15次推荐</p>
+                        <ul>
+                            <li>✓ 无限次生成</li>
+                            <li>✓ 优先支持</li>
+                            <li>✓ 新功能抢先体验</li>
+                        </ul>
+                        <button class="btn-primary">立即订阅</button>
+                    </div>
+                    <div class="pricing-card">
+                        <h3>包年无限</h3>
+                        <div class="price">¥299<span class="unit">/年</span></div>
+                        <p>省¥49</p>
+                        <ul>
+                            <li>✓ 无限次生成</li>
+                            <li>✓ 优先支持</li>
+                            <li>✓ 新功能抢先体验</li>
+                        </ul>
+                        <button class="btn-outline">立即订阅</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app-v2.js"></script>
+</body>
+</html>

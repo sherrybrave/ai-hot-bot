@@ -28,7 +28,7 @@ jobs:
 
       - name: Run AI Hot Bot
         env:
-          TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
+          USE_SCRAPER: true
           ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
         run: |
           cd ai-hot-bot

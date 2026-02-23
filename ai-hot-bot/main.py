@@ -13,6 +13,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from twitter_api import TwitterFetcher
+from twitter_scraper import TwitterMockScraper
 from zhipu_ai import ZhipuAnalyzer
 from formatter import ReportFormatter
 
@@ -41,14 +42,16 @@ def main():
     # 环境变量
     TWITTER_BEARER_TOKEN = os.getenv('TWITTER_BEARER_TOKEN')
     ZHIPU_API_KEY = os.getenv('ZHIPU_API_KEY')
+    USE_SCRAPER = os.getenv('USE_SCRAPER', 'false').lower() == 'true'
 
     # 检查环境变量
-    if not TWITTER_BEARER_TOKEN:
-        print("❌ 错误: 未设置 TWITTER_BEARER_TOKEN 环境变量")
-        sys.exit(1)
-
     if not ZHIPU_API_KEY:
         print("❌ 错误: 未设置 ZHIPU_API_KEY 环境变量")
+        sys.exit(1)
+
+    # 如果不使用爬虫模式，需要 Twitter API Token
+    if not USE_SCRAPER and not TWITTER_BEARER_TOKEN:
+        print("❌ 错误: 未设置 TWITTER_BEARER_TOKEN 环境变量（或设置 USE_SCRAPER=true 使用爬虫模式）")
         sys.exit(1)
 
     # 配置参数
@@ -68,12 +71,23 @@ def main():
         print(f"✅ 成功加载 {len(accounts)} 个账号")
 
         # 2. 获取推文数据
-        fetcher = TwitterFetcher(bearer_token=TWITTER_BEARER_TOKEN)
-        all_tweets = fetcher.get_all_tweets(
-            usernames=accounts,
-            hours_ago=HOURS_AGO,
-            min_likes=MIN_LIKES
-        )
+        if USE_SCRAPER:
+            print("🕷️  使用爬虫模式（模拟数据）")
+            fetcher = TwitterMockScraper()
+            # 爬虫模式下，只处理前5个账号作为示例
+            sample_accounts = accounts[:5]
+            all_tweets = []
+            for account in sample_accounts:
+                tweets = fetcher.get_user_tweets(account, hours_ago=HOURS_AGO, min_likes=MIN_LIKES)
+                all_tweets.extend(tweets)
+        else:
+            print("🔑 使用 Twitter API 模式")
+            fetcher = TwitterFetcher(bearer_token=TWITTER_BEARER_TOKEN)
+            all_tweets = fetcher.get_all_tweets(
+                usernames=accounts,
+                hours_ago=HOURS_AGO,
+                min_likes=MIN_LIKES
+            )
 
         if not all_tweets:
             print("\n⚠️  未找到符合条件的推文，程序退出")

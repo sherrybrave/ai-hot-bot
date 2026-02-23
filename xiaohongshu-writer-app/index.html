@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小红书笔记生成器</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="logo"><span>小红书</span>笔记生成器</h1>
+        </header>
+
+        <!-- Progress Bar -->
+        <div class="progress-section">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 17%"></div>
+            </div>
+            <div class="steps-indicator" id="stepsIndicator">
+                <div class="step active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">参考文章</div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">分析风格</div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">输入Idea</div>
+                </div>
+                <div class="step" data-step="4">
+                    <div class="step-circle">4</div>
+                    <div class="step-label">生成笔记</div>
+                </div>
+                <div class="step" data-step="5">
+                    <div class="step-circle">5</div>
+                    <div class="step-label">预览修改</div>
+                </div>
+                <div class="step" data-step="6">
+                    <div class="step-circle">6</div>
+                    <div class="step-label">最终确认</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <!-- 步骤1: 输入参考文章 -->
+            <div class="step-content" id="step1">
+                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-primary);">输入参考文章</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">粘贴小红书笔记正文，系统将学习你的写作风格</p>
+
+                <div class="form-group">
+                    <label class="form-label">参考文章 <span style="color: var(--primary-color);">*</span></label>
+                    <textarea class="form-textarea" id="referenceContent" style="min-height: 280px;" placeholder="你可以通过以下两种方式输入：&#10;&#10;方式1：粘贴小红书笔记链接&#10;https://www.xiaohongshu.com/explore/xxxxxxxx&#10;&#10;方式2：直接粘贴笔记正文&#10;今天和大家分享3个提高工作效率的方法...&#10;&#10;💡 支持输入一篇或多篇，如果是多篇，请用 --- 分隔符区分不同文章"></textarea>
+                    <span class="form-hint">建议输入2-3篇不同主题但风格一致的文章，系统学习会更准确</span>
+                </div>
+
+                <div style="background: var(--primary-light); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid rgba(255, 36, 66, 0.2); margin-bottom: 1.5rem;">
+                    <p style="font-size: 0.95rem; color: var(--text-primary); font-weight: 600; margin-bottom: 0.75rem;">✨ 输入说明</p>
+                    <ul style="margin: 0; padding-left: 1.25rem; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;">
+                        <li><strong style="color: var(--text-primary);">链接输入：</strong>粘贴小红书笔记链接，系统会自动获取内容（需安装小红书 MCP）</li>
+                        <li><strong style="color: var(--text-primary);">直接粘贴：</strong>复制笔记正文直接粘贴即可</li>
+                        <li><strong style="color: var(--text-primary);">多篇输入：</strong>如果有多篇，用 <code style="background: white; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.85rem;">---</code> 三个短横线分隔</li>
+                    </ul>
+                </div>
+
+                <div style="background: var(--bg-secondary); padding: 1rem 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin: 0;">
+                        <span style="color: var(--primary-color);">💡</span> 小提示：文章越多，系统学习到的风格越准确。建议选择2-3篇你最满意的作品。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 步骤2: 分析风格 -->
+            <div class="step-content hidden" id="step2">
+                <!-- 分析中状态 -->
+                <div id="analyzingState">
+                    <div class="loading-container">
+                        <div class="loading-spinner"></div>
+                        <p class="loading-text" id="analyzeText">正在分析文章风格...</p>
+                        <div class="loading-progress">
+                            <div class="loading-progress-bar"></div>
+                        </div>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-tertiary);" id="analyzeDetail">提取写作框架中...</p>
+                    </div>
+                </div>
+
+                <!-- 分析完成状态 -->
+                <div id="analyzeResult" class="hidden">
+                    <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-primary);">✨ 分析完成！</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">系统已识别出你的写作风格特征</p>
+
+                    <!-- 写作框架 -->
+                    <div class="card" style="margin-bottom: 1.5rem;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                            <span style="font-size: 1.5rem;">📚</span>
+                            <h3 style="font-size: 1.1rem; font-weight: 600; color: var(--text-primary);">写作框架</h3>
+                        </div>
+                        <div class="tags-container">
+                            <span class="tag active" id="resultFramework">信号列举-干货型</span>
+                        </div>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;" id="resultFrameworkDesc">
+                            这种框架适合分享实用技巧和方法论，通过列举多个要点来传递价值。
+                        </p>
+                    </div>
+
+                    <!-- 语言风格 -->
+                    <div class="card" style="margin-bottom: 1.5rem;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                            <span style="font-size: 1.5rem;">✍️</span>
+                            <h3 style="font-size: 1.1rem; font-weight: 600; color: var(--text-primary);">语言风格</h3>
+                        </div>
+                        <div class="tags-container">
+                            <span class="tag active" id="resultTone">轻松活泼</span>
+                            <span class="tag active" id="resultVoice">第一人称"我"</span>
+                        </div>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;" id="resultToneDesc">
+                            使用亲切的语气和第一人称叙述，像和朋友聊天一样分享经验。
+                        </p>
+                    </div>
+
+                    <!-- 结构特征 -->
+                    <div class="card" style="margin-bottom: 1.5rem;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                            <span style="font-size: 1.5rem;">🏗️</span>
+                            <h3 style="font-size: 1.1rem; font-weight: 600; color: var(--text-primary);">结构特征</h3>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                            <div style="background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius-md);">
+                                <p style="font-size: 0.85rem; color: var(--text-tertiary); margin-bottom: 0.5rem;">段落结构</p>
+                                <p style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary);" id="resultStructure">总分总结构</p>
+                            </div>
+                            <div style="background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius-md);">
+                                <p style="font-size: 0.85rem; color: var(--text-tertiary); margin-bottom: 0.5rem;">Emoji 使用</p>
+                                <p style="font-size: 0.95rem; font-weight: 600; color: var(--text-primary);" id="resultEmoji">适当使用 Emoji</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 表达习惯 -->
+                    <div class="card" style="margin-bottom: 1.5rem;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+                            <span style="font-size: 1.5rem;">💬</span>
+                            <h3 style="font-size: 1.1rem; font-weight: 600; color: var(--text-primary);">表达习惯</h3>
+                        </div>
+                        <ul style="margin: 0; padding-left: 1.25rem; font-size: 0.9rem; color: var(--text-secondary); line-height: 2;">
+                            <li id="resultHabit1">常用"和大家分享"作为开场白</li>
+                            <li id="resultHabit2">喜欢用"第一个"、"第二个"等序数词</li>
+                            <li id="resultHabit3">经常使用"记住"、"建议"等提醒性词汇</li>
+                            <li id="resultHabit4">结尾习惯总结观点或给出行动建议</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: var(--primary-light); padding: 1rem 1.25rem; border-radius: var(--radius-md); border: 1px solid rgba(255, 36, 66, 0.2);">
+                        <p style="font-size: 0.9rem; color: var(--text-primary); margin: 0;">
+                            <span style="color: var(--primary-color);">✅</span> <strong>分析完成！</strong>系统已记住你的写作风格，接下来生成笔记时会应用这些特征。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 步骤3: 输入Idea -->
+            <div class="step-content hidden" id="step3">
+                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-primary);">输入你的 Idea</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">告诉我们你想写什么，系统将用你的风格生成内容</p>
+
+                <div style="background: var(--primary-light); padding: 1rem 1.25rem; border-radius: var(--radius-md); border: 1px solid rgba(255, 36, 66, 0.2); margin-bottom: 2rem;">
+                    <p style="font-size: 0.95rem; color: var(--text-primary); font-weight: 600; margin-bottom: 0.5rem;">✨ 已识别的风格标签</p>
+                    <div class="tags-container" style="margin-top: 0.75rem;">
+                        <span class="tag" id="styleFramework">信号列举-干货型</span>
+                        <span class="tag" id="styleTone">轻松活泼</span>
+                        <span class="tag" id="styleStructure">总分总结构</span>
+                        <span class="tag" id="styleEmoji">适当使用Emoji</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">你想写什么？ <span style="color: var(--primary-color);">*</span></label>
+                    <textarea class="form-textarea" id="userIdea" style="min-height: 180px;" placeholder="比如：&#10;- 想分享3个提高工作效率的方法&#10;- 写一篇关于远程办公的建议&#10;- 推荐几本最近读过的好书&#10;&#10;随便说说你的想法就好，系统会帮你完善成完整的笔记！"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">目标受众 <span style="color: var(--text-tertiary); font-size: 0.85rem;">(可选)</span></label>
+                    <input type="text" class="form-input" id="targetAudience" placeholder="比如：刚入职的新人、大学生、职场女性...">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">特殊要求 <span style="color: var(--text-tertiary); font-size: 0.85rem;">(可选)</span></label>
+                    <input type="text" class="form-input" id="specialReq" placeholder="比如：不要用太多emoji、要更正式一点...">
+                </div>
+            </div>
+
+            <!-- 步骤4: 生成笔记（进度可视化） -->
+            <div class="step-content hidden" id="step4">
+                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text-primary);">正在生成笔记...</h2>
+
+                <div class="generation-container">
+                    <div class="progress-steps">
+                        <div class="progress-step" id="genStep1">
+                            <div class="progress-step-icon">1</div>
+                            <div class="progress-step-content">
+                                <div class="progress-step-title">提取框架</div>
+                                <div class="progress-step-desc">等待中...</div>
+                            </div>
+                        </div>
+                        <div class="progress-step" id="genStep2">
+                            <div class="progress-step-icon">2</div>
+                            <div class="progress-step-content">
+                                <div class="progress-step-title">融合风格</div>
+                                <div class="progress-step-desc">等待中...</div>
+                            </div>
+                        </div>
+                        <div class="progress-step" id="genStep3">
+                            <div class="progress-step-icon">3</div>
+                            <div class="progress-step-content">
+                                <div class="progress-step-title">生成内容</div>
+                                <div class="progress-step-desc">等待中...</div>
+                            </div>
+                        </div>
+                        <div class="progress-step" id="genStep4">
+                            <div class="progress-step-icon">4</div>
+                            <div class="progress-step-content">
+                                <div class="progress-step-title">推荐标题</div>
+                                <div class="progress-step-desc">等待中...</div>
+                            </div>
+                        </div>
+                        <div class="progress-step" id="genStep5">
+                            <div class="progress-step-icon">5</div>
+                            <div class="progress-step-content">
+                                <div class="progress-step-title">生成标签</div>
+                                <div class="progress-step-desc">等待中...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-panel">
+                        <div class="preview-title">实时预览</div>
+                        <div class="preview-content" id="realtimePreview">正在准备生成...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 步骤5: 预览和修改 -->
+            <div class="step-content hidden" id="step5">
+                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-primary);">预览和修改</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">选择标题，编辑内容，添加标签</p>
+
+                <div class="form-group">
+                    <label class="form-label">选择标题 <span style="color: var(--primary-color);">*</span></label>
+                    <div class="title-cards" id="titleCards">
+                        <div class="title-card" onclick="selectTitle(this, 0)">
+                            <div class="title-card-text" id="titleOption0">标题1</div>
+                            <div class="title-card-reason" id="titleReason0">推荐理由</div>
+                        </div>
+                        <div class="title-card selected" onclick="selectTitle(this, 1)">
+                            <div class="title-card-text" id="titleOption1">标题2</div>
+                            <div class="title-card-reason" id="titleReason1">推荐理由</div>
+                        </div>
+                        <div class="title-card" onclick="selectTitle(this, 2)">
+                            <div class="title-card-text" id="titleOption2">标题3</div>
+                            <div class="title-card-reason" id="titleReason2">推荐理由</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">正文内容 <span style="color: var(--primary-color);">*</span></label>
+                    <textarea class="form-textarea" id="editableContent" style="min-height: 300px; line-height: 1.9;"></textarea>
+                    <span class="form-hint">你可以直接编辑内容，调整文字表达</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">添加标签 <span style="color: var(--text-tertiary); font-size: 0.85rem;">(最多5个)</span></label>
+                    <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem;">
+                        <input type="text" class="form-input" id="tagInput" placeholder="输入标签，按回车添加" style="flex: 1;">
+                        <button class="btn btn-primary" onclick="addTag()" style="max-width: 100px; padding: 0.75rem 1.25rem;">添加</button>
+                    </div>
+                    <div class="tags-container" id="selectedTags">
+                        <span class="tag">#效率提升</span>
+                        <span class="tag">#职场经验</span>
+                        <span class="tag">#个人成长</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 步骤6: 最终确认 -->
+            <div class="step-content hidden" id="step6">
+                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-primary);">🎉 笔记已生成！</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">请确认内容，然后复制到小红书发布</p>
+
+                <div class="final-content">
+                    <div class="final-title" id="finalTitle">大厂不说的效率秘籍：3个技巧让你少走弯路</div>
+                    <div class="final-body" id="finalBody">今天和大家分享3个在互联网大厂工作的效率秘籍，这些都是我多年实践总结出来的精华。
+
+第一个技巧：用杠杆思维替代努力思维。很多人觉得勤奋就能成功，但其实真正的高手都在用杠杆——用最小的投入获得最大的产出。
+
+第二个技巧：建立个人知识库。不要让有用的信息流失，把每个知识点都系统化整理，这样才能形成复利效应。
+
+第三个技巧：学会说"不"。不是所有事情都值得做，学会判断优先级，把时间花在高价值的事情上。
+
+记住：效率不是做得更多，而是做得更对！</div>
+                    <div class="final-tags" id="finalTags">
+                        <span class="tag">#效率提升</span>
+                        <span class="tag">#职场经验</span>
+                        <span class="tag">#个人成长</span>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="copyContent()">复制全部内容</button>
+                    <button class="btn btn-secondary" onclick="regenerate()">重新生成</button>
+                </div>
+
+                <div class="free-tier-notice" id="freeTierNotice">
+                    ⚠️ 免费额度剩余：<span id="remainingCount">2</span>/2 次 | 升级到 Pro 版本解锁无限次生成
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn btn-secondary" onclick="startOver()" style="max-width: 200px; margin: 0 auto;">再写一篇</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Navigation Buttons -->
+        <div class="nav-buttons" id="navButtons">
+            <button class="btn btn-secondary" id="prevBtn" style="display: none;">← 上一步</button>
+            <button class="btn btn-primary" id="nextBtn">下一步 →</button>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git push:*)",
+      "Read(//Users/it/.ssh/**)",
+      "Bash(git config:*)",
+      "Bash(python3:*)",
+      "Bash(unzip:*)",
+      "Bash(python:*)",
+      "Bash(pip3:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}

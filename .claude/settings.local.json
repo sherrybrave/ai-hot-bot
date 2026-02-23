@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__zread__get_repo_structure",
+      "mcp__web-reader__webReader",
+      "Bash(uv:*)",
+      "Bash(node:*)",
+      "Bash(playwright --version)",
+      "Bash(curl:*)",
+      "Bash(sh)"
+    ]
+  }
+}
