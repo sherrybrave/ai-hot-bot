@@ -61,8 +61,12 @@ def main():
     TOP_N = 10
 
     # 创建输出目录
-    reports_dir = Path(__file__).parent.parent / 'reports'
-    reports_dir.mkdir(exist_ok=True)
+    # 在本地开发时，reports 在项目根目录；在 GitHub Actions 中也在根目录
+    if Path(__file__).parent.name == 'ai-hot-bot':
+        reports_dir = Path(__file__).parent.parent / 'reports'
+    else:
+        reports_dir = Path(__file__).parent / 'reports'
+    reports_dir.mkdir(exist_ok=True, parents=True)
 
     try:
         # 1. 加载账号列表
